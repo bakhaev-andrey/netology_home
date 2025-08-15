@@ -22,10 +22,10 @@
 - [03_motd.yml](./Task-1/03_motd.yml)
 - [README.md](./Task-1/README.md)
 - [Ansible.png](./Task-1/Ansible.png)
-- [Playbook #1.png](./Task-1/Playbook%20%231.png)
-- [Playbook #2.png](./Task-1/Playbook%20%232.png)
-- [Playbook #3.1.png](./Task-1/Playbook%20%233.1.png)
-- [Playbook #3.2.png](./Task-1/Playbook%20%233.2.png)
+- [Playbook_1.png](./Task-1/Playbook_1.png)
+- [Playbook_2.png](./Task-1/Playbook_2.png)
+- [Playbook_3_1.png](./Task-1/Playbook_3_1.png)
+- [Playbook_3_2.png](./Task-1/Playbook_3_2.png)
 - [Test_Connection.png](./Task-1/Test_Connection.png)
 
 
@@ -41,8 +41,8 @@
 - [README.md](./Task-2/README.md)
 - [ansible.cfg](./Task-2/ansible.cfg)
 - [inventory.ini](./Task-2/inventory.ini)
-- [Playbook #2.1.png](./Task-2/Playbook%20%232.1.png)
-- [Playbook #2.2.png](./Task-2/Playbook%20%232.2.png)
+- [Playbook_2_1.png](./Task-2/Playbook_2_1.png)
+- [Playbook_2_2.png](./Task-2/Playbook_2_2.png)
 
 
 
