@@ -13,17 +13,24 @@
     mode: '0644'
   notify: restart apache
 
-- name: Open port 80 in firewall
+- name: Configure Apache to use port 8080
+  lineinfile:
+    path: "{{ '/etc/httpd/conf/httpd.conf' if ansible_os_family == 'RedHat' else '/etc/apache2/ports.conf' }}"
+    regexp: '^Listen 80'
+    line: 'Listen 8080'
+  notify: restart apache
+
+- name: Open port 8080 in firewall
   firewalld:
-    port: "80/tcp"
+    port: "8080/tcp"
     permanent: true
     state: enabled
   when: ansible_os_family == "RedHat"
 
-- name: Open port 80 in UFW firewall
+- name: Open port 8080 in UFW firewall
   ufw:
     rule: allow
-    port: '80'
+    port: '8080'
     proto: tcp
   when: ansible_os_family == "Debian"
 
@@ -35,6 +42,6 @@
 
 - name: Check website availability
   uri:
-    url: "http://localhost"
+    url: "http://localhost:8080"
     status_code: 200
 
