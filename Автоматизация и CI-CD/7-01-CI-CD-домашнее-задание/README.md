@@ -26,7 +26,7 @@
 - [Playbook #2.png](./Task-1/Playbook%20%232.png)
 - [Playbook #3.1.png](./Task-1/Playbook%20%233.1.png)
 - [Playbook #3.2.png](./Task-1/Playbook%20%233.2.png)
-- [Тест подключения.png](./Task-1/Тест%20подключения.png)
+- [Test_Connection.png](./Task-1/Test_Connection.png)
 
 
 
