@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Andrey Bakhaev
+  description: Role for installing and configuring Apache web server with dynamic index.html
+  company: Netology
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - 18.04
+        - 20.04
+        - 22.04
+  galaxy_tags:
+    - web
+    - apache
+    - httpd
+

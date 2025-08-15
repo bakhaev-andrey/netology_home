@@ -1,0 +1,17 @@
+- name: Configure system MOTD with facts (IP and hostname)
+  hosts: moodle
+  become: true
+  gather_facts: true
+
+  vars:
+    motd_message: "Добро пожаловать на сервер {{ ansible_hostname | default('Unknown') }}!\nIP-адрес: {{ ansible_default_ipv4.address | default('N/A') }}\nХорошего дня, системный администратор!"
+
+  tasks:
+    - name: Set /etc/motd
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: "{{ motd_message }}"
+        owner: root
+        group: root
+        mode: '0644'
+
