@@ -21,9 +21,6 @@
 - [02_tuned_install_enable.yml](./Задание%20№1/02_tuned_install_enable.yml)
 - [03_motd.yml](./Задание%20№1/03_motd.yml)
 
-**Результаты выполнения:**
-- [Подробный отчет с скриншотами](./Задание%20№1/README.md)
-
 
 
 ### Задание 2
@@ -33,12 +30,7 @@
 Модифицируйте плейбук из пункта 3, задания 1. В качестве приветствия он должен установить IP-адрес и hostname управляемого хоста, пожелание хорошего дня системному администратору.
 
 Файлы для выполнения «Задание 2» (в папке `Задание №2`):
-- [ansible.cfg](./Задание%20№2/ansible.cfg)
-- [inventory.ini](./Задание%20№2/inventory.ini)
-- [03_motd_facts.yml](./Задание%20№2/03_motd_facts.yml)
-
-**Результаты выполнения:**
-- [Подробный отчет с скриншотами](./Задание%20№2/README.md) 
+- [03_motd_facts.yml](./Задание%20№2/03_motd_facts.yml) 
 
 
 
@@ -71,7 +63,3 @@
 - [roles/web_apache/handlers/main.yml](./Задание%20№3/roles/web_apache/handlers/main.yml)
 - [roles/web_apache/defaults/main.yml](./Задание%20№3/roles/web_apache/defaults/main.yml)
 - [roles/web_apache/meta/main.yml](./Задание%20№3/roles/web_apache/meta/main.yml)
-
-**Результаты выполнения:**
-- [Подробный отчет с скриншотами](./Задание%20№3/README.md)
-- **Сайт доступен по адресу:** http://34.40.105.112:8080
