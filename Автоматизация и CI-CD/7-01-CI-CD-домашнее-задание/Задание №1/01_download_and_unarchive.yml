@@ -1,0 +1,46 @@
+- name: Download and unarchive archive (Kafka example)
+  hosts: moodle
+  gather_facts: false
+  become: true
+
+  vars:
+    download_url: https://downloads.apache.org/kafka/3.7.0/kafka_2.13-3.7.0.tgz
+    download_dir: /tmp/kafka_download
+    extract_dir: /opt/kafka
+    archive_path: "{{ download_dir }}/kafka.tgz"
+    cleanup_downloads: false
+
+  tasks:
+    - name: Ensure download directory exists
+      ansible.builtin.file:
+        path: "{{ download_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download archive
+      ansible.builtin.get_url:
+        url: "{{ download_url }}"
+        dest: "{{ archive_path }}"
+        mode: '0644'
+        timeout: 60
+
+    - name: Ensure extract directory exists
+      ansible.builtin.file:
+        path: "{{ extract_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Unarchive archive to target directory
+      ansible.builtin.unarchive:
+        src: "{{ archive_path }}"
+        dest: "{{ extract_dir }}"
+        remote_src: true
+        creates: "{{ extract_dir }}/kafka_2.13-3.7.0"
+
+    - name: Clean up downloaded archive
+      ansible.builtin.file:
+        path: "{{ archive_path }}"
+        state: absent
+      when: cleanup_downloads | default(false)
+
+

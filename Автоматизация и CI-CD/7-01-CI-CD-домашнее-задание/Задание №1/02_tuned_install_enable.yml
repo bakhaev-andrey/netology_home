@@ -1,0 +1,27 @@
+- name: Install and enable tuned
+  hosts: moodle
+  become: true
+
+  tasks:
+    - name: Install tuned package
+      ansible.builtin.package:
+        name: tuned
+        state: present
+
+    - name: Enable and start tuned service
+      ansible.builtin.service:
+        name: tuned
+        state: started
+        enabled: true
+
+    - name: Verify tuned service status
+      ansible.builtin.service_facts:
+
+    - name: Display tuned service status
+      ansible.builtin.debug:
+        msg: "Tuned service is {{ ansible_facts.services.tuned.state }}"
+      when: ansible_facts.services.tuned is defined
+
+
+
+
