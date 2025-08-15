@@ -14,12 +14,19 @@
 3. Изменить приветствие системы (motd) при входе на любое другое. Пожалуйста, в этом задании используйте переменную для задания приветствия. Переменную можно задавать любым удобным способом.
 
 
-Файлы для выполнения «Задание 1» (в папке `Задание №1`):
+Файлы для выполнения «Задание №1» (в папке `Задание №1`):
 - [ansible.cfg](./Задание%20№1/ansible.cfg)
 - [inventory.ini](./Задание%20№1/inventory.ini)
 - [01_download_and_unarchive.yml](./Задание%20№1/01_download_and_unarchive.yml)
 - [02_tuned_install_enable.yml](./Задание%20№1/02_tuned_install_enable.yml)
 - [03_motd.yml](./Задание%20№1/03_motd.yml)
+- [README.md](./Задание%20№1/README.md)
+- [Ansible.png](./Задание%20№1/Ansible.png)
+- [Playbook #1.png](./Задание%20№1/Playbook%20%231.png)
+- [Playbook #2.png](./Задание%20№1/Playbook%20%232.png)
+- [Playbook #3.1.png](./Задание%20№1/Playbook%20%233.1.png)
+- [Playbook #3.2.png](./Задание%20№1/Playbook%20%233.2.png)
+- [Тест подключения.png](./Задание%20№1/Тест%20подключения.png)
 
 
 
@@ -29,8 +36,13 @@
 
 Модифицируйте плейбук из пункта 3, задания 1. В качестве приветствия он должен установить IP-адрес и hostname управляемого хоста, пожелание хорошего дня системному администратору.
 
-Файлы для выполнения «Задание 2» (в папке `Задание №2`):
-- [03_motd_facts.yml](./Задание%20№2/03_motd_facts.yml) 
+Файлы для выполнения «Задание №2» (в папке `Задание №2`):
+- [03_motd_facts.yml](./Задание%20№2/03_motd_facts.yml)
+- [README.md](./Задание%20№2/README.md)
+- [ansible.cfg](./Задание%20№2/ansible.cfg)
+- [inventory.ini](./Задание%20№2/inventory.ini)
+- [Playbook #2.1.png](./Задание%20№2/Playbook%20%232.1.png)
+- [Playbook #2.2.png](./Задание%20№2/Playbook%20%232.2.png)
 
 
 
@@ -58,6 +70,10 @@
 - [site_web.yml](./Задание%20№3/site_web.yml)
 - [inventory.ini](./Задание%20№3/inventory.ini)
 - [ansible.cfg](./Задание%20№3/ansible.cfg)
+- [README.md](./Задание%20№3/README.md)
+- [web_apache_role.tar.gz](./Задание%20№3/web_apache_role.tar.gz)
+- [Playbook 3.1.png](./Задание%20№3/Playbook%203.1.png)
+- [Playbook 3.2.png](./Задание%20№3/Playbook%203.2.png)
 - [roles/web_apache/tasks/main.yml](./Задание%20№3/roles/web_apache/tasks/main.yml)
 - [roles/web_apache/templates/index.html.j2](./Задание%20№3/roles/web_apache/templates/index.html.j2)
 - [roles/web_apache/handlers/main.yml](./Задание%20№3/roles/web_apache/handlers/main.yml)
