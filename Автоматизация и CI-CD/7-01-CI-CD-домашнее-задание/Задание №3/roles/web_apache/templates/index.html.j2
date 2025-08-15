@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Host Information</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .info { margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Информация о хосте</h1>
+    
+    <div class="info">
+        <strong>CPU:</strong> {{ ansible_processor_cores }} ядер
+    </div>
+    
+    <div class="info">
+        <strong>RAM:</strong> {{ ansible_memtotal_mb }} MB
+    </div>
+    
+    <div class="info">
+        <strong>Первый HDD:</strong> 
+        {% if ansible_devices %}
+            {% set first_disk = ansible_devices.keys() | list | first %}
+            {% if first_disk %}
+                {{ first_disk }} - {{ ansible_devices[first_disk].size | default('Unknown') }}
+            {% else %}
+                Нет доступных дисков
+            {% endif %}
+        {% else %}
+            Информация о дисках недоступна
+        {% endif %}
+    </div>
+    
+    <div class="info">
+        <strong>IP-адрес:</strong> {{ ansible_default_ipv4.address }}
+    </div>
+</body>
+</html>
+
