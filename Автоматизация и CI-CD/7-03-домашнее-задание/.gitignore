@@ -1,0 +1,25 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# SSH ключи
+*.pem
+*.key
+*.pub
+ssh_keys/
+authorized_keys
+
+# Переменные с секретами
+terraform.tfvars
+*.tfvars
+
+# Ansible
+hosts.ini
+*.retry
+
+# Временные файлы
+*.tmp
+*.log
+*.tfplan

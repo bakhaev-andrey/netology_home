@@ -1,0 +1,36 @@
+#cloud-config
+# Cloud-init конфигурация для Ubuntu серверов
+# SSH ключи передаются через переменные Terraform
+
+# Обновление системы
+package_update: true
+package_upgrade: true
+
+# Установка базовых пакетов
+packages:
+  - curl
+  - wget
+  - htop
+  - vim
+  - unzip
+
+# Создание пользователя
+users:
+  - name: user
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+
+# Настройка SSH
+ssh_pwauth: false
+
+# Настройка timezone
+timezone: Europe/Moscow
+
+# Настройка hostname управляется провайдером (имя ВМ), в cloud-init не задаём
+
+# Выполнение команд после создания
+runcmd:
+  - echo "Cloud-init завершен успешно"
+  - systemctl restart ssh

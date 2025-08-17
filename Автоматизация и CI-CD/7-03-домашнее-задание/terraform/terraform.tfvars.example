@@ -1,0 +1,31 @@
+# Пример файла переменных для Terraform Google Cloud
+# Скопируйте этот файл в terraform.tfvars и заполните своими значениями
+
+# ID проекта Google Cloud
+gcp_project_id = "your-project-id-here"
+
+# Регион Google Cloud (по умолчанию us-central1)
+gcp_region = "us-central1"
+
+# Зона A (по умолчанию us-central1-a)
+gcp_zone_a = "us-central1-a"
+
+# Зона B (по умолчанию us-central1-b)
+gcp_zone_b = "us-central1-b"
+
+# Идентификатор flow для именования ресурсов
+flow = "dev"
+
+# Тип машины для compute инстансов (по умолчанию e2-micro)
+machine_type = "e2-micro"
+
+# Размер загрузочного диска в GB (по умолчанию 10)
+disk_size_gb = 10
+
+# Путь к файлу SSH публичного ключа (файл не коммитится)
+ssh_public_key_path = "../ssh_keys/id_rsa.pub"
+
+# Конфигурация тестовых инстансов
+test = {
+  cores = 2
+}
