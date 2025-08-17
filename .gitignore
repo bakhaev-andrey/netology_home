@@ -8,3 +8,10 @@
 Автоматизация и CI-CD/**/ssh_keys/
 Автоматизация и CI-CD/**/terraform/hosts.ini
 Автоматизация и CI-CD/**/terraform/terraform.tfvars
+.DS_Store
+*.zip
+*.tfplan
+Автоматизация и CI-CD/**/.terraform/
+Автоматизация и CI-CD/**/ssh_keys/
+Автоматизация и CI-CD/**/terraform/hosts.ini
+Автоматизация и CI-CD/**/terraform/terraform.tfvars
