@@ -1,0 +1,33 @@
+---
+- name: Install and start Nginx on webservers
+  hosts: webservers
+  become: true
+  vars:
+    nginx_package: nginx
+    index_template_src: ../templates/index.html.j2
+    index_path: /var/www/html/index.html
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install nginx
+      apt:
+        name: "{{ nginx_package }}"
+        state: present
+
+    - name: Ensure nginx is enabled and running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Deploy index.html
+      template:
+        src: "{{ index_template_src }}"
+        dest: "{{ index_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+
