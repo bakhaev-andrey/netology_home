@@ -371,13 +371,13 @@ resource "google_compute_global_forwarding_rule" "http_forwarding_rule" {
 
 ![Скриншот 2 - Health checks (HEALTHY status)](screenshots/health_checks.png)
 
-![Скриншот 3 - Виртуальные машины в GCP](screenshots/vm_instances.png)
+![Скриншот 3 - Виртуальные машины в GCP](screenshots/vm.png)
 
-![Скриншот 4 - Страница Nginx через балансировщик (web-server-1)](screenshots/nginx_server1.png)
+![Скриншот 4 - Страница Nginx через балансировщик (web-server-1)](screenshots/nginx1.png)
 
-![Скриншот 5 - Страница Nginx через балансировщик (web-server-2)](screenshots/nginx_server2.png)
+![Скриншот 5 - Страница Nginx через балансировщик (web-server-2)](screenshots/nginx2.png)
 
-![Скриншот 6 - Terraform outputs](screenshots/terraform_output.png)
+![Скриншот 6 - Тест балансировки нагрузки](screenshots/test.png)
 
 ---
 
