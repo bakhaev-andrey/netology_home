@@ -1,0 +1,19 @@
+- name: Configure system MOTD
+  hosts: moodle
+  become: true
+
+  vars:
+    motd_message: "Добро пожаловать на сервер Moodle! Удачной работы."
+
+  tasks:
+    - name: Set /etc/motd
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: "{{ motd_message }}\n"
+        owner: root
+        group: root
+        mode: '0644'
+
+
+
+

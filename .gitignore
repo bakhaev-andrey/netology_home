@@ -4,6 +4,7 @@ terraform.tfvars
 *.tfstate.*
 .terraform/
 .terraform.lock.hcl
+*.tfplan
 
 # Python
 .venv/
@@ -29,7 +30,13 @@ ansible/group_vars/all.yml
 # OS
 .DS_Store
 Thumbs.db
+*.zip
 
 # Archive
 _archive/
 
+# Other projects
+Автоматизация и CI-CD/**/.terraform/
+Автоматизация и CI-CD/**/ssh_keys/
+Автоматизация и CI-CD/**/terraform/hosts.ini
+Автоматизация и CI-CD/**/terraform/terraform.tfvars

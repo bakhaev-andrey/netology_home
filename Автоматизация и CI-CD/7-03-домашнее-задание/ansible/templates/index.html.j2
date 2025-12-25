@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GCP Nginx - {{ inventory_hostname }}</title>
+  </head>
+  <body>
+    <h1>Nginx up on {{ inventory_hostname }}</h1>
+    <p>Private IP: {{ ansible_default_ipv4.address }}</p>
+    <p>Deployed via Ansible</p>
+  </body>
+</html>
+

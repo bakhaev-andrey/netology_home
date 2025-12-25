@@ -1,0 +1,40 @@
+---
+- name: Install Apache web server
+  package:
+    name: "{{ apache_package_name }}"
+    state: present
+
+- name: Configure index.html with host characteristics
+  template:
+    src: index.html.j2
+    dest: "{{ apache_document_root }}/index.html"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart apache
+
+- name: Open port 80 in firewall
+  firewalld:
+    port: "80/tcp"
+    permanent: true
+    state: enabled
+  when: ansible_os_family == "RedHat"
+
+- name: Open port 80 in UFW firewall
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+  when: ansible_os_family == "Debian"
+
+- name: Start and enable Apache service
+  service:
+    name: "{{ apache_service_name }}"
+    state: started
+    enabled: true
+
+- name: Check website availability
+  uri:
+    url: "http://localhost"
+    status_code: 200
+
