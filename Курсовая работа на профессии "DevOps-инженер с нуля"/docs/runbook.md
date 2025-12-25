@@ -26,8 +26,13 @@
 - `yc compute snapshot-schedule list` → есть расписание `daily-snapshots` с retention 7 дней.
 
 ## 2. Генерация Ansible inventory и проверка доступности bastion
-1. `make render-inventory`
-2. `jq '.bastion.hosts' inventory/hosts.json` — убедиться, что bastion прописан.
+1. Создать inventory вручную на основе Terraform outputs:
+   ```bash
+   terraform -chdir=terraform output -json > /tmp/tf_output.json
+   # Используйте значения из outputs для создания inventory/hosts.yml
+   # Или используйте скрипт из _archive/scripts/render-inventory.sh
+   ```
+2. Проверить, что bastion прописан в inventory.
 3. `make ansible-ping`
 
 **Проверка:** приватные хосты пингуются через ProxyCommand (SSH идёт только через bastion, требование «один публичный SSH-порт» выполнено).
