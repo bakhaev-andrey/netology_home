@@ -205,13 +205,14 @@ curl -v http://158.160.199.9/
 
 - `terraform/` — инфраструктурный код для VPC, подсетей, SG, ВМ и снапшотов
 - `ansible/` — плейбуки для конфигурации всех ролей (web, bastion, Prometheus, Grafana, Elasticsearch, Kibana, beats)
-- `inventory/` — динамический inventory, генерируется из Terraform
+- `inventory/` — динамический inventory, генерируется из Terraform (через `make render-inventory`)
 - `docs/`
   - `architecture.md` — схема сети, IP-план, таблица ролей ВМ
   - `runbook.md` — порядок запуска и проверки
   - `verification-checklist.md` — чек-лист проверок
+  - `infrastructure.md` — техническое описание всех сервисов
   - `screenshots/` — подтверждения работы сервисов
-- `scripts/` — скрипты автоматизации (bootstrap, deploy, destroy, render-inventory)
+- `Makefile` — команды для работы с проектом
 
 ## Контрольный список сдачи
 

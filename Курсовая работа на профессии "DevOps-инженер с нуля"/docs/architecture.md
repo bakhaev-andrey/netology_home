@@ -65,7 +65,7 @@ graph TD
 ## Связь Terraform ↔️ Ansible
 
 - Terraform создаёт сеть, SG, ВМ, ALB и снапшоты и публикует IP-адреса через outputs.
-- Скрипт `scripts/render-inventory.sh` читает `terraform output -json`, формирует статический JSON-inventory и автоматически прописывает ProxyCommand на bastion.
+- Команда `make render-inventory` читает `terraform output -json`, формирует YAML-inventory и автоматически прописывает ProxyCommand на bastion.
 - Ansible роли используют `hostvars` и `groups` для генерации конфигов (Prometheus targets, Grafana datasource, Kibana/ Filebeat endpoints).
 
 ## Проверка соответствия требованиям

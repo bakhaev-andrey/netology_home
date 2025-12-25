@@ -4,7 +4,12 @@
 
 ## 0. Подготовка окружения
 1. Задать переменные окружения `YC_TOKEN`, `YC_CLOUD_ID`, `YC_FOLDER_ID` или заполнить `terraform.tfvars` на основе примера.
-2. Создать Python venv и установить зависимости: `./scripts/bootstrap.sh`.
+2. Создать Python venv и установить зависимости:
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
 3. Проверить формат и синтаксис: `make verify`.
 
 **Проверка:** `terraform -chdir=terraform validate` + `ansible-lint` проходят без ошибок.
