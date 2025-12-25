@@ -25,6 +25,8 @@
 - Приватные подсети: `private-ru-central1-a`, `private-ru-central1-b`
 - Bastion IP: `62.84.124.19`
 
+![Инфраструктура в Yandex Cloud](docs/screenshots/yandex%20cloud.png)
+
 ### ✅ Этап 2. Веб-слой и балансировщик
 
 - Созданы две идентичные веб-ВМ в разных зонах
@@ -37,6 +39,44 @@
 - Веб-серверы: `web-a` (10.70.1.26), `web-b` (10.70.2.23)
 - ALB публичный IP: `158.160.199.9`
 - Target Group: оба хоста в статусе `healthy`
+
+**Проверка доступности сайта через ALB:**
+
+   ```bash
+curl -v http://158.160.199.9/
+```
+
+<details>
+<summary>Вывод команды curl (HTTP 200 OK)</summary>
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 158.160.199.9:80...
+* Connected to 158.160.199.9 (158.160.199.9) port 80
+> GET / HTTP/1.1
+> Host: 158.160.199.9
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+< HTTP/1.1 200 OK
+< server: ycalb
+< date: Thu, 25 Dec 2025 18:42:55 GMT
+< content-type: text/html
+< content-length: 850
+< last-modified: Thu, 25 Dec 2025 15:30:10 GMT
+< etag: "694d5882-352"
+< accept-ranges: bytes
+< 
+{ [850 bytes data]
+
+100   850  100   850    0     0   1638      0 --:--:-- --:--:-- --:--:--  1640
+* Connection #0 to host 158.160.199.9 left intact
+```
+
+</details>
 
 ### ✅ Этап 3. Мониторинг
 
@@ -57,6 +97,14 @@
   - ✅ prometheus self-monitoring - UP
   - ✅ nginx_log_exporter (web-a, web-b) - UP
 
+**Grafana USE дашборды:**
+
+![Grafana USE Dashboard 1 - CPU и Memory](docs/screenshots/grafana-use-dashboard1.png)
+
+![Grafana USE Dashboard 2 - Disk и Network](docs/screenshots/grafana-use-dashboard2.png)
+
+![Grafana USE Dashboard 3 - HTTP метрики](docs/screenshots/grafana-use-dashboard3.png)
+
 ### ✅ Этап 4. Логи
 
 - Развернут Elasticsearch на приватной ВМ (Docker)
@@ -72,6 +120,12 @@
 - Количество документов: 30,350+
 - Индекс создан: `filebeat-2025.12.25`
 - Kibana Discover показывает данные логов
+
+**Kibana - Index Pattern и данные:**
+
+![Kibana Data Views - Index Pattern filebeat-*](docs/screenshots/Data%20Views.png)
+
+![Kibana Discover - Просмотр логов](docs/screenshots/Kibana%20Discover.png)
 
 ### ✅ Этап 5. Резервное копирование
 
@@ -90,13 +144,8 @@
 
 - Создан `docs/architecture.md` - схема сети и таблица SG/портов
 - Создан `docs/runbook.md` - порядок деплоя и проверки
-- Собраны все скриншоты в `docs/screenshots/`:
-  - ✅ ALB curl output
-  - ✅ Grafana USE dashboards (3 скриншота)
-  - ✅ Kibana Discover и Data Views
-  - ✅ Prometheus targets (JSON)
-  - ✅ Snapshot schedule
-  - ✅ Yandex Cloud инфраструктура
+- Создан `docs/verification-checklist.md` - чек-лист проверок
+- Все скриншоты вставлены в соответствующие разделы выше
 
 ## Доступ к сервисам
 
