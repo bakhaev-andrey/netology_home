@@ -1,0 +1,71 @@
+---
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+    state: present
+    update_cache: true
+
+- name: Ensure Docker service is running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create Grafana directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "472"
+    group: "472"
+    mode: '0755'
+  loop:
+    - /var/lib/grafana
+    - /etc/grafana/provisioning/datasources
+    - /etc/grafana/provisioning/dashboards
+    - /var/lib/grafana/dashboards
+
+- name: Provision Prometheus datasource
+  template:
+    src: datasource.yml.j2
+    dest: /etc/grafana/provisioning/datasources/diploma.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Provision dashboards config
+  template:
+    src: dashboards.yml.j2
+    dest: /etc/grafana/provisioning/dashboards/diploma.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Deploy USE dashboard
+  copy:
+    src: dashboards/use.json
+    dest: /var/lib/grafana/dashboards/use.json
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Run Grafana container
+  docker_container:
+    name: grafana
+    image: grafana/grafana:{{ grafana_version }}
+    state: started
+    restart_policy: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/lib/grafana:/var/lib/grafana
+      - /etc/grafana/provisioning:/etc/grafana/provisioning:ro
+      - /var/lib/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    env:
+      GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
+      GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
+      GF_PATHS_PROVISIONING: "/etc/grafana/provisioning"
+      GF_PATHS_DATA: "/var/lib/grafana"
+    user: "472:472"
+    detach: true

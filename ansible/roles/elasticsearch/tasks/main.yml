@@ -1,0 +1,66 @@
+---
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+    state: present
+    update_cache: true
+
+- name: Ensure Docker service is running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create Elasticsearch directories
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: '{{ item.mode }}'
+    recurse: true
+  loop:
+    - { path: /var/lib/elasticsearch, owner: "1000", group: "1000", mode: '0775' }
+    - { path: /etc/elasticsearch, owner: root, group: root, mode: '0755' }
+    - { path: /var/log/elasticsearch, owner: "1000", group: "1000", mode: '0775' }
+
+- name: Ensure Elasticsearch directories have correct permissions
+  shell: |
+    sudo chown -R 1000:1000 /var/lib/elasticsearch /var/log/elasticsearch
+    sudo chmod -R 775 /var/lib/elasticsearch /var/log/elasticsearch
+  changed_when: true
+
+- name: Deploy Elasticsearch config
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Stop and remove existing Elasticsearch container
+  docker_container:
+    name: elasticsearch
+    state: absent
+  ignore_errors: true
+
+- name: Run Elasticsearch container
+  docker_container:
+    name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:{{ elasticsearch_version }}
+    state: started
+    restart_policy: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /var/lib/elasticsearch:/usr/share/elasticsearch/data
+      - /etc/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    env:
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms{{ elasticsearch_heap }} -Xmx{{ elasticsearch_heap }}"
+      xpack.security.enabled: "false"
+      bootstrap.memory_lock: "false"
+    detach: true

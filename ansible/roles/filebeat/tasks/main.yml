@@ -1,0 +1,51 @@
+---
+- name: Remove Elastic repository if exists
+  apt_repository:
+    repo: "deb https://artifacts.elastic.co/packages/8.x/apt stable main"
+    state: absent
+    filename: elastic-8
+  ignore_errors: true
+
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+    state: present
+    update_cache: true
+
+- name: Ensure Docker service is running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create Filebeat config directory
+  file:
+    path: /etc/filebeat
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Deploy Filebeat configuration
+  template:
+    src: filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Run Filebeat container
+  docker_container:
+    name: filebeat
+    image: docker.elastic.co/beats/filebeat:{{ filebeat_version }}
+    state: started
+    restart_policy: always
+    volumes:
+      - /etc/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/log/nginx:/var/log/nginx:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    user: root
+    detach: true

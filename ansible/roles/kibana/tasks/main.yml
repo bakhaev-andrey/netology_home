@@ -1,0 +1,49 @@
+---
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+    state: present
+    update_cache: true
+
+- name: Ensure Docker service is running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create Kibana directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "1000"
+    group: "1000"
+    mode: '0755'
+  loop:
+    - /var/lib/kibana
+    - /etc/kibana
+
+- name: Deploy Kibana config
+  template:
+    src: kibana.yml.j2
+    dest: /etc/kibana/kibana.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Run Kibana container
+  docker_container:
+    name: kibana
+    image: docker.elastic.co/kibana/kibana:{{ kibana_version }}
+    state: started
+    restart_policy: always
+    ports:
+      - "5601:5601"
+    volumes:
+      - /var/lib/kibana:/usr/share/kibana/data
+      - /etc/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    env:
+      ELASTICSEARCH_HOSTS: "http://{{ hostvars['elasticsearch']['ansible_host'] | default('elasticsearch') }}:9200"
+    user: "1000:1000"
+    detach: true

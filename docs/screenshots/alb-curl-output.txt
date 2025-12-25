@@ -1,0 +1,46 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 158.160.199.9:80...
+* Connected to 158.160.199.9 (158.160.199.9) port 80
+> GET / HTTP/1.1
+> Host: 158.160.199.9
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+< HTTP/1.1 200 OK
+< server: ycalb
+< date: Thu, 25 Dec 2025 18:42:55 GMT
+< content-type: text/html
+< content-length: 850
+< last-modified: Thu, 25 Dec 2025 15:30:10 GMT
+< etag: "694d5882-352"
+< accept-ranges: bytes
+< 
+{ [850 bytes data]
+100   850  100   850    0     0   1638      0 --:--:-- --:--:-- --:--:--  1640
+* Connection #0 to host 158.160.199.9 left intact
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Курсовая по DevOps</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background-color: #f5f5f5; }
+    .card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    h1 { color: #202124; }
+    ul { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Отказоустойчивая инфраструктура</h1>
+    <p>Сайт обслуживается двумя веб-серверами за Application Load Balancer в Yandex Cloud.</p>
+    <ul>
+      <li>Мониторинг: Prometheus + Grafana</li>
+      <li>Логи: Elasticsearch + Kibana + Filebeat</li>
+      <li>Резервные копии: snapshot schedule</li>
+    </ul>
+  </div>
+</body>
+</html>

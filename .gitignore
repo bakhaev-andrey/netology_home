@@ -1,0 +1,35 @@
+# Terraform
+terraform.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ansible
+inventory/hosts.json
+inventory/hosts.yml
+ansible.log
+*.retry
+
+# Sensitive data - используйте all.yml.example как шаблон
+ansible/group_vars/all.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Archive
+_archive/
+

@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus nginx log exporter
+After=network.target
+
+[Service]
+User=nginxlogexp
+Group=nginxlogexp
+ExecStart=/usr/local/bin/prometheus-nginxlog-exporter --config-file=/etc/prometheus-nginxlog-exporter.yml
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+groups:
+  - name: nginx-availability
+    rules:
+      - alert: HighHttpErrors
+        expr: sum(rate(nginx_http_response_count_total{status=~"5.."}[5m])) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "На сайте наблюдаются 5xx"
+      - alert: CpuSaturation
+        expr: avg(rate(node_cpu_seconds_total{mode!="idle"}[5m])) > 0.85
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Высокая загрузка CPU"

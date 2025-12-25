@@ -1,0 +1,24 @@
+---
+ansible_user: ubuntu
+ansible_become: true
+bastion_ssh_port: 22
+site_root: /var/www/diploma
+site_server_name: diploma.local
+monitoring_namespace: diploma
+node_exporter_version: "1.6.1"
+nginx_log_exporter_version: "1.11.0"
+prometheus_version: "2.49.0"
+prometheus_retention: 15d
+grafana_version: "10.4.0"
+grafana_admin_user: admin
+grafana_admin_password: "CHANGE_ME"  # ⚠️ Замените на свой пароль
+elasticsearch_version: "8.11.3"
+kibana_version: "8.11.3"
+filebeat_version: "8.11.3"
+elasticsearch_heap: "2g"
+filebeat_log_paths:
+  - /var/log/nginx/access.log
+  - /var/log/nginx/error.log
+log_retention_days: 7
+prometheus_scrape_interval: 15s
+

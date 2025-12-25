@@ -1,0 +1,16 @@
+listen:
+  port: 4040
+telemetry-path: "/metrics"
+namespace: nginx
+
+labels:
+  site: diploma
+
+runs:
+  - name: access
+    format: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\""
+    source_files:
+      - /var/log/nginx/access.log
+    histogram_buckets:
+      request_bytes: [100, 1000, 10000, 100000]
+      response_bytes: [100, 1000, 10000, 100000]

@@ -1,0 +1,13 @@
+yc_token      = "<YC_TOKEN>"
+yc_cloud_id   = "b1gg0000000000000000"
+yc_folder_id  = "b1fl0000000000000000"
+default_zone  = "ru-central1-a"
+zones         = ["ru-central1-a", "ru-central1-b"]
+public_subnets  = ["10.70.10.0/24", "10.70.11.0/24"]
+private_subnets = ["10.70.1.0/24", "10.70.2.0/24"]
+ssh_user        = "ubuntu"
+ssh_public_key  = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOexamplekey user@example"
+allowed_ssh_cidr    = "0.0.0.0/0"
+allowed_http_cidr   = "0.0.0.0/0"
+allowed_grafana_cidr = "0.0.0.0/0"
+allowed_kibana_cidr  = "0.0.0.0/0"

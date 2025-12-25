@@ -1,0 +1,16 @@
+Port {{ bastion_ssh_port | default(22) }}
+Protocol 2
+AddressFamily any
+ListenAddress 0.0.0.0
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM yes
+X11Forwarding no
+AllowTcpForwarding yes
+AllowAgentForwarding yes
+ClientAliveInterval 300
+ClientAliveCountMax 2
+Subsystem sftp /usr/lib/openssh/sftp-server

@@ -1,0 +1,53 @@
+---
+- name: Check services status
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Check web services
+      when: "'web' in group_names"
+      shell: |
+        echo "=== Web Services ==="
+        systemctl is-active nginx || echo "nginx: inactive"
+        systemctl is-active node_exporter || echo "node_exporter: inactive"
+        systemctl is-active nginxlog-exporter || echo "nginxlog-exporter: inactive"
+      register: web_status
+      changed_when: false
+
+    - name: Check Prometheus
+      when: "'prometheus' in group_names"
+      shell: |
+        echo "=== Prometheus ==="
+        systemctl is-active prometheus || echo "prometheus: inactive"
+      register: prometheus_status
+      changed_when: false
+
+    - name: Check Grafana
+      when: "'grafana' in group_names"
+      shell: |
+        echo "=== Grafana ==="
+        sudo docker ps --filter name=grafana --format "{{ '{{' }}.Status{{ '}}' }}" || echo "grafana: not running"
+      register: grafana_status
+      changed_when: false
+
+    - name: Check Kibana
+      when: "'kibana' in group_names"
+      shell: |
+        echo "=== Kibana ==="
+        sudo docker ps --filter name=kibana --format "{{ '{{' }}.Status{{ '}}' }}" || echo "kibana: not running"
+      register: kibana_status
+      changed_when: false
+
+    - name: Check Elasticsearch
+      when: "'elasticsearch' in group_names"
+      shell: |
+        echo "=== Elasticsearch ==="
+        sudo docker ps --filter name=elasticsearch --format "{{ '{{' }}.Status{{ '}}' }}" || echo "elasticsearch: not running"
+      register: elasticsearch_status
+      changed_when: false
+
+    - name: Display status
+      debug:
+        msg: "{{ item.stdout }}"
+      loop: "{{ [web_status, prometheus_status, grafana_status, kibana_status, elasticsearch_status] | selectattr('stdout', 'defined') | list }}"
+      when: item.stdout is defined
+

@@ -1,0 +1,45 @@
+---
+- name: Apply base configuration
+  hosts: all
+  become: true
+  roles:
+    - role: base
+
+- name: Configure bastion host
+  hosts: bastion
+  become: true
+  roles:
+    - role: bastion
+
+- name: Provision web tier
+  hosts: web
+  become: true
+  roles:
+    - role: web
+    - role: node_exporter
+    - role: nginx_log_exporter
+    - role: filebeat
+
+- name: Provision Prometheus node
+  hosts: prometheus
+  become: true
+  roles:
+    - role: prometheus
+
+- name: Provision Grafana node
+  hosts: grafana
+  become: true
+  roles:
+    - role: grafana
+
+- name: Provision Elasticsearch node
+  hosts: elasticsearch
+  become: true
+  roles:
+    - role: elasticsearch
+
+- name: Provision Kibana node
+  hosts: kibana
+  become: true
+  roles:
+    - role: kibana
