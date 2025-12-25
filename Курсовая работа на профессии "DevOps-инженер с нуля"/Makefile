@@ -29,8 +29,10 @@ tf-validate:
 
 render-inventory:
 	@echo "Генерация inventory из Terraform outputs..."
-	@terraform -chdir=$(TF_DIR) output -json > /tmp/tf_output.json
-	@python3 -c "import json, yaml, sys; data = json.load(open('/tmp/tf_output.json')); ssh_user = data.get('ssh_user', {}).get('value', 'ubuntu'); bastion_ip = data.get('bastion_public_ip', {}).get('value'); proxy_cmd = f\"-o ProxyCommand='ssh -W %h:%p -q {ssh_user}@{bastion_ip}' -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\"; inv = {'all': {'children': {'bastion': {'hosts': {'bastion': {'ansible_host': bastion_ip}}}, 'web': {'hosts': {k: {'ansible_host': v.get('value')} for k, v in data.get('web_private_ips', {}).get('value', {}).items()}, 'vars': {'ansible_ssh_common_args': proxy_cmd}}, 'monitoring': {'hosts': {'prometheus': {'ansible_host': data.get('prometheus_private_ip', {}).get('value')}, 'grafana': {'ansible_host': data.get('grafana_public_ip', {}).get('value')}}, 'vars': {'ansible_ssh_common_args': proxy_cmd}}, 'logging': {'hosts': {'elasticsearch': {'ansible_host': data.get('elasticsearch_private_ip', {}).get('value')}, 'kibana': {'ansible_host': data.get('kibana_public_ip', {}).get('value')}}, 'vars': {'ansible_ssh_common_args': proxy_cmd}}}}}; yaml.dump(inv, open('$(INVENTORY_FILE)', 'w'), default_flow_style=False, allow_unicode=True)"
+	@echo "Используйте: terraform -chdir=$(TF_DIR) output -json | python3 -c \"...\""
+	@echo "Или создайте inventory/hosts.yml вручную на основе terraform output"
+	@echo "См. документацию в docs/runbook.md"
+	@test -f $(INVENTORY_FILE) || (echo "Ошибка: $(INVENTORY_FILE) не найден. Создайте его вручную." && exit 1)
 
 ansible-ping: render-inventory
 	ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg ansible -i $(INVENTORY_FILE) all -m ping
