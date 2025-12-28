@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="db-schema" name="ERD">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Entities -->
+        <mxCell id="employees" value="employees&#xa;PK id&#xa;full_name&#xa;hire_date&#xa;salary&#xa;FK position_id&#xa;FK structural_department_id&#xa;FK branch_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="200" width="260" height="200" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="positions" value="positions&#xa;PK id&#xa;name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="200" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="department_types" value="department_types&#xa;PK id&#xa;name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="260" width="200" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="structural_departments" value="structural_departments&#xa;PK id&#xa;name&#xa;FK department_type_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="400" width="230" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="branches" value="branches&#xa;PK id&#xa;address" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#4fc3f7;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="860" y="120" width="210" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="projects" value="projects&#xa;PK id&#xa;name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#4fc3f7;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="860" y="420" width="210" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="employee_projects" value="employee_projects&#xa;PK, FK employee_id&#xa;PK, FK project_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#f06292;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="820" y="270" width="260" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- Relationships (Crow's Foot) -->
+        <mxCell id="edge_pos_emp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=ERmany;startArrow=ERone;strokeColor=#666666;endFill=1;startFill=1;" edge="1" parent="1" source="positions" target="employees">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge_depttype_struct" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=ERmany;startArrow=ERone;strokeColor=#666666;endFill=1;startFill=1;" edge="1" parent="1" source="department_types" target="structural_departments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge_struct_emp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=ERmany;startArrow=ERone;strokeColor=#666666;endFill=1;startFill=1;" edge="1" parent="1" source="structural_departments" target="employees">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge_branch_emp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=ERmany;startArrow=ERone;strokeColor=#666666;endFill=1;startFill=1;" edge="1" parent="1" source="branches" target="employees">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge_emp_empprj" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=ERmany;startArrow=ERone;strokeColor=#666666;endFill=1;startFill=1;" edge="1" parent="1" source="employees" target="employee_projects">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge_prj_empprj" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=ERmany;startArrow=ERone;strokeColor=#666666;endFill=1;startFill=1;" edge="1" parent="1" source="projects" target="employee_projects">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
