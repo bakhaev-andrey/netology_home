@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    environment:
+      - discovery.type=single-node
+      - cluster.name=asterly-elk
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.13
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  nginx:
+    image: nginx:1.25-alpine
+    volumes:
+      - nginx-logs:/var/log/nginx
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8081:80"
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.17.13
+    user: root
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - nginx-logs:/var/log/nginx:ro
+    command: ["filebeat", "-e", "-strict.perms=false"]
+    depends_on:
+      - elasticsearch
+      - nginx
+
+volumes:
+  elasticsearch-data:
+  nginx-logs:
